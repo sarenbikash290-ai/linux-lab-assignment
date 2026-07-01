@@ -1,0 +1,29 @@
+=== ENVIRONMENT REPORT ===
+
+--- Username & Groups ---
+bikash
+uid=1000(bikash) gid=1000(bikash) groups=1000(bikash),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users)
+bikash adm cdrom sudo dip plugdev users
+
+--- Current Shell ---
+/bin/bash
+
+--- Current Working Directory ---
+/home/bikash/linux_lab_assingment/Question1_LinuxEnvironmentVerification
+
+--- Files and Directories ---
+total 12
+drwxr-xr-x 2 bikash bikash 4096 Jul  1 16:43 .
+drwxr-xr-x 3 bikash bikash 4096 Jul  1 16:30 ..
+-rw-r--r-- 1 bikash bikash  384 Jul  1 16:43 Environment_Report.txt
+
+--- Network Connectivity ---
+PING google.com (142.250.205.14) 56(84) bytes of data.
+64 bytes from pnmaaa-bc-in-f14.1e100.net (142.250.205.14): icmp_seq=1 ttl=117 time=78.2 ms
+64 bytes from pnmaaa-bc-in-f14.1e100.net (142.250.205.14): icmp_seq=2 ttl=117 time=104 ms
+64 bytes from pnmaaa-bc-in-f14.1e100.net (142.250.205.14): icmp_seq=3 ttl=117 time=60.9 ms
+64 bytes from pnmaaa-bc-in-f14.1e100.net (142.250.205.14): icmp_seq=4 ttl=117 time=78.9 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3006ms
+rtt min/avg/max/mdev = 60.869/80.537/104.172/15.439 ms

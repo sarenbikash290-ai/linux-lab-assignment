@@ -1,0 +1,25 @@
+OBSERVATIONS - Question 1: Linux Environment Verification
+
+1. whoami / id / groups
+   These commands revealed my username (bikash) and confirmed the groups
+   my account belongs to. This is useful to verify what permission level
+   I have before accessing company resources.
+
+2. echo $SHELL
+   This showed my default shell is /bin/bash, meaning bash interprets
+   all the commands I type.
+
+3. pwd
+   This confirmed my current working directory, letting me verify
+   exactly where in the filesystem I was operating before running
+   further commands.
+
+4. ls -la
+   This listed all files and folders (including hidden ones) in my
+   workspace along with permissions and ownership, giving me a full
+   view of what exists in the current directory.
+
+5. ping -c 4 google.com
+   This sent 4 packets to google.com and received replies with 0%
+   packet loss, confirming my Linux environment has working network
+   connectivity to the internet.

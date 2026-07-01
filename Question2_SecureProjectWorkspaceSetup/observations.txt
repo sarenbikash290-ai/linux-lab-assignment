@@ -1,0 +1,32 @@
+OBSERVATIONS - Question 2: Secure Project Workspace Setup
+
+1. mkdir -p project_workspace/docs project_workspace/src project_workspace/config
+   Created a project workspace with organized subfolders for documentation,
+   source files, and configuration files, giving a clean structure for
+   team collaboration.
+
+2. umask
+   The umask value (0022) showed that by default, new directories get
+   755 permissions and new files get 644 permissions, since umask
+   subtracts write access for group/others.
+
+3. ls -ld / ls -l (before modification)
+   Before securing, the workspace and files used default permissions
+   (readable by everyone), which is not ideal for sensitive project data.
+
+4. chmod 750 / chmod 640
+   Changed permissions so the owner has full control, the group has
+   limited access, and others have no access at all. This restricts
+   the project workspace to only authorized users.
+
+5. ls -l / whoami / id (ownership)
+   Confirmed that the workspace files and folders are owned by my user
+   account, meaning I have full control while the permission settings
+   prevent unauthorized users from reading or modifying project files.
+
+6. How permissions protect project data
+   Restricting write/execute access to only the owner (and limited read
+   access to the group) prevents accidental or malicious modification
+   of files by other users on the system. This is critical in a shared
+   or multi-user environment where sensitive project data must not be
+   exposed to everyone.

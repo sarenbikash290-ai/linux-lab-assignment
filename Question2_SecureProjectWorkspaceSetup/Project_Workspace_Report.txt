@@ -1,0 +1,35 @@
+=== PROJECT WORKSPACE REPORT ===
+
+--- Directory Structure Created ---
+project_workspace:
+config
+docs
+src
+
+project_workspace/config:
+
+project_workspace/docs:
+project_notes.txt
+
+project_workspace/src:
+
+--- Umask Value Used ---
+0022
+
+--- Permissions BEFORE Modification (recreate for reference) ---
+(Default permissions were based on umask at creation time: drwxr-xr-x for dirs, -rw-r--r-- for files)
+
+--- Permissions AFTER Modification ---
+drwxr-x--- 5 bikash bikash 4096 Jul  1 18:02 project_workspace
+drwxr-x--- 2 bikash bikash 4096 Jul  1 18:02 project_workspace/config
+drwxr-x--- 2 bikash bikash 4096 Jul  1 18:04 project_workspace/docs
+drwxr-x--- 2 bikash bikash 4096 Jul  1 18:02 project_workspace/src
+-rw-r----- 1 bikash bikash 0 Jul  1 18:04 project_workspace/docs/project_notes.txt
+
+--- Ownership Details ---
+total 12
+drwxr-x--- 2 bikash bikash 4096 Jul  1 18:02 config
+drwxr-x--- 2 bikash bikash 4096 Jul  1 18:04 docs
+drwxr-x--- 2 bikash bikash 4096 Jul  1 18:02 src
+bikash
+uid=1000(bikash) gid=1000(bikash) groups=1000(bikash),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users)

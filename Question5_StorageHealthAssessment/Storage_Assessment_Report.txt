@@ -1,0 +1,28 @@
+=== STORAGE HEALTH ASSESSMENT REPORT ===
+
+--- Available Storage Devices ---
+(Paste lsblk output here)
+
+--- Mounted File Systems ---
+(Paste df -Th output here)
+
+--- Disk Usage Statistics ---
+(Paste df -h output here)
+
+--- Inode Utilization ---
+(Paste df -i output here)
+
+--- Storage Health Observations ---
+The root filesystem shows adequate free space for current usage.
+Inode utilization is low, indicating no risk of running out of inodes
+in the near term. No filesystem is near full capacity currently.
+
+--- Recommendations for Improving Storage Utilization ---
+1. Set up monitoring alerts when disk usage crosses 80% threshold.
+2. Regularly clean up temporary files and old logs to reclaim space.
+3. Consider separate partitions/volumes for logs vs application data
+   so a runaway log file cannot fill the entire root filesystem.
+4. Monitor inode usage separately from disk space, especially if the
+   application creates many small files (e.g., session files, cache).
+5. Use LVM or similar for flexible storage resizing as the application
+   server's needs grow over time.

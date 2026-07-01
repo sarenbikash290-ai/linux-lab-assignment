@@ -1,0 +1,37 @@
+OBSERVATIONS - Question 5: Storage Health Assessment and Documentation
+
+1. lsblk / sudo fdisk -l
+   Listed all available block storage devices and their partition details,
+   giving a full inventory of storage hardware available on the system
+   before deploying a new application server.
+
+2. mount / df -Th
+   Showed which filesystems are currently mounted and their types
+   (ext4, tmpfs, etc.), confirming how storage is organized and
+   accessible to the OS.
+
+3. df -h
+   Displayed disk usage statistics (used/available/percentage) across
+   all mounted filesystems, essential for capacity planning.
+
+4. df -i
+   Checked inode utilization separately from disk space - important
+   because a filesystem can run out of inodes (blocking new file
+   creation) even while disk space remains available, especially with
+   applications that generate many small files.
+
+5. free -h
+   Reviewed memory and swap usage, since swap is disk-backed and ties
+   into overall storage health assessment.
+
+6. vi editor usage
+   Used vi to directly create Storage_Assessment_Report.txt as required
+   by the question - entered insert mode with 'i', typed the report,
+   exited with Esc, and saved/quit with ':wq'.
+
+Conclusion:
+A thorough storage assessment before deploying an application server
+must look beyond simple disk space - inode availability, filesystem
+types, and mount structure all matter. Proactive monitoring and
+separating volumes (e.g., logs vs data) helps prevent storage-related
+outages later.

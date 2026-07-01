@@ -1,0 +1,100 @@
+=== FILE ACCESS AND I/O INVESTIGATION REPORT ===
+
+--- Open Files Identified (lsof for bash) ---
+COMMAND PID   USER  FD   TYPE DEVICE SIZE/OFF  NODE NAME
+bash    307 bikash cwd    DIR   8,48     4096 45085 /home/bikash/linux_lab_assingment/Question4_FileAccessAndIOInvestigation
+bash    307 bikash rtd    DIR   8,48     4096     2 /
+bash    307 bikash txt    REG   8,48  1540520  1503 /usr/bin/bash
+bash    307 bikash mem    REG   8,48  2186512 14176 /usr/lib/x86_64-linux-gnu/libc.so.6
+bash    307 bikash mem    REG   8,48   369120  2734 /usr/lib/locale/C.utf8/LC_CTYPE
+bash    307 bikash mem    REG   8,48       50  2741 /usr/lib/locale/C.utf8/LC_NUMERIC
+bash    307 bikash mem    REG   8,48     3360  2744 /usr/lib/locale/C.utf8/LC_TIME
+bash    307 bikash mem    REG   8,48     1406  2733 /usr/lib/locale/C.utf8/LC_COLLATE
+bash    307 bikash mem    REG   8,48      270  2739 /usr/lib/locale/C.utf8/LC_MONETARY
+bash    307 bikash mem    REG   8,48       48  2738 /usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES
+bash    307 bikash mem    REG   8,48       34  2742 /usr/lib/locale/C.utf8/LC_PAPER
+bash    307 bikash mem    REG   8,48    27028 13860 /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+bash    307 bikash mem    REG   8,48   212504 14514 /usr/lib/x86_64-linux-gnu/libtinfo.so.6.6
+bash    307 bikash mem    REG   8,48       62  2740 /usr/lib/locale/C.utf8/LC_NAME
+bash    307 bikash mem    REG   8,48      127  2732 /usr/lib/locale/C.utf8/LC_ADDRESS
+bash    307 bikash mem    REG   8,48       47  2743 /usr/lib/locale/C.utf8/LC_TELEPHONE
+bash    307 bikash mem    REG   8,48       23  2736 /usr/lib/locale/C.utf8/LC_MEASUREMENT
+bash    307 bikash mem    REG   8,48      258  2735 /usr/lib/locale/C.utf8/LC_IDENTIFICATION
+bash    307 bikash mem    REG   8,48   254864 13931 /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+
+--- File Descriptor Observations (current shell) ---
+Shell PID: 307
+total 0
+lrwx------ 1 bikash bikash 64 Jul  1 18:38 0 -> /dev/pts/0
+l-wx------ 1 bikash bikash 64 Jul  1 18:38 1 -> /home/bikash/linux_lab_assingment/Question4_FileAccessAndIOInvestigation/IO_Investigation_Report.txt
+lrwx------ 1 bikash bikash 64 Jul  1 18:44 10 -> /dev/pts/0
+lrwx------ 1 bikash bikash 64 Jul  1 18:38 2 -> /dev/pts/0
+lrwx------ 1 bikash bikash 64 Jul  1 18:38 255 -> /dev/pts/0
+
+--- Output Redirection Results ---
+-- output.log --
+This is standard output
+This is appended output
+
+--- Error Redirection Results ---
+-- error.log --
+ls: cannot access '/nonexistent_folder': No such file or directory
+
+-- combined.log (stdout + stderr) --
+ls: cannot access '/nonexistent_folder': No such file or directory
+
+--- Resource Limits Observed ---
+real-time non-blocking time  (microseconds, -R) unlimited
+core file size              (blocks, -c) 0
+data seg size               (kbytes, -d) unlimited
+scheduling priority                 (-e) 0
+file size                   (blocks, -f) unlimited
+pending signals                     (-i) 30167
+max locked memory           (kbytes, -l) 65536
+max memory size             (kbytes, -m) unlimited
+open files                          (-n) 10240
+pipe size                (512 bytes, -p) 8
+POSIX message queues         (bytes, -q) 819200
+real-time priority                  (-r) 0
+stack size                  (kbytes, -s) 8192
+cpu time                   (seconds, -t) unlimited
+max user processes                  (-u) 30167
+virtual memory              (kbytes, -v) unlimited
+file locks                          (-x) unlimited
+
+Max open file descriptors (ulimit -n): 10240
+
+--- Disk Usage (I/O context) ---
+Filesystem      Size  Used Avail Use% Mounted on
+none            3.7G     0  3.7G   0% /usr/lib/modules/6.18.33.2-microsoft-standard-WSL2
+none            3.7G  4.0K  3.7G   1% /mnt/wsl
+drivers         476G  260G  217G  55% /usr/lib/wsl/drivers
+/dev/sdd       1007G  1.6G  955G   1% /
+none            3.7G   40K  3.7G   1% /mnt/wslg
+none            3.7G     0  3.7G   0% /usr/lib/wsl/lib
+rootfs          3.7G  2.8M  3.7G   1% /init
+none            3.7G  532K  3.7G   1% /run
+none            3.7G     0  3.7G   0% /run/lock
+none            3.7G     0  3.7G   0% /run/shm
+none            3.7G   80K  3.7G   1% /mnt/wslg/versions.txt
+none            3.7G   80K  3.7G   1% /mnt/wslg/doc
+C:\             476G  260G  217G  55% /mnt/c
+none            1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+tmpfs           3.7G  4.0K  3.7G   1% /tmp
+none            1.0M     0  1.0M   0% /run/credentials/systemd-resolved.service
+none            1.0M     0  1.0M   0% /run/credentials/getty@tty1.service
+tmpfs           756M   12K  756M   1% /run/user/1000
+
+--- Explanation: How Linux Manages File I/O ---
+In Linux, everything is treated as a file, including regular files,
+devices, and sockets. Each process is given file descriptors (small
+integers) as handles to open files - 0 for stdin, 1 for stdout, and
+2 for stderr by default. The kernel maintains a file descriptor table
+per process, mapping these numbers to actual open file objects in the
+system-wide open file table, which in turn point to inodes on disk.
+Redirection operators (>, >>, 2>, 2>&1) let the shell reassign what a
+file descriptor points to before a program runs, which is how logging
+output can be captured to files instead of the terminal. Resource
+limits (ulimit) cap how many file descriptors a process can open
+simultaneously, and exceeding this limit is a common cause of
+'too many open files' errors in logging-heavy applications.

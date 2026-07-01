@@ -1,0 +1,42 @@
+OBSERVATIONS - Question 4: File Access and I/O Investigation
+
+1. lsof -c bash
+   Listed all files currently opened by bash processes, showing that
+   even a simple shell keeps several files open (terminal device,
+   libraries, current working directory) - useful for spotting unusual
+   or excessive file handles during an I/O investigation.
+
+2. ls -l /proc/$$/fd
+   Showed the file descriptor table of the current shell. Descriptors
+   0, 1, and 2 correspond to stdin, stdout, and stderr respectively,
+   each usually pointing to the terminal device by default.
+
+3. echo > output.log / >> output.log
+   ">" overwrote the file with new content while ">>" appended to it
+   without erasing existing data - important distinction for log files
+   that should grow rather than get overwritten each time.
+
+4. ls /nonexistent_folder 2> error.log
+   Redirected only the error stream (fd 2) into a separate file,
+   confirming Linux treats stdout and stderr as independent streams
+   that can be captured separately for debugging.
+
+5. 2>&1 combined redirection
+   Merged stderr into stdout so both normal output and errors landed
+   in the same log file - a common real-world logging pattern.
+
+6. ulimit -a / ulimit -n
+   Revealed the maximum number of file descriptors a process can open
+   at once. If a logging application opens too many files without
+   closing them, it can hit this limit and start failing - a likely
+   root cause for the "logging issues" scenario in this question.
+
+7. df -h
+   Checked available disk space, since a full disk can also silently
+   break logging (write failures) even if file descriptors are fine.
+
+Conclusion:
+Linux represents all I/O through file descriptors, and understanding
+how they're allocated, redirected, and limited is essential to
+diagnosing logging failures - whether caused by hitting the open-file
+limit, disk space exhaustion, or misconfigured redirection.

@@ -1,0 +1,42 @@
+=== FILE SYSTEM AND LINK ANALYSIS REPORT ===
+
+--- Step 1: Original File Created ---
+(original.txt created with sample content)
+
+--- Inode Numbers (before deletion) ---
+Note: original.txt was later deleted as part of the experiment - see below
+
+--- Hard Link vs Symbolic Link Comparison ---
+45120 -rw-r--r-- 1 bikash bikash 35 Jul  1 18:21 hardlink.txt
+45122 lrwxrwxrwx 1 bikash bikash 12 Jul  1 18:22 symlink.txt -> original.txt
+
+--- Metadata (stat) ---
+-- hardlink.txt --
+  File: hardlink.txt
+  size: 35        	Blocks: 8          IO Block: 4096   regular file
+Device: 8,48	Inode: 45120       Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/  bikash)   Gid: ( 1000/  bikash)
+Access: 2026-07-01 18:26:23.105216623 +0000
+Modify: 2026-07-01 18:21:40.773250875 +0000
+Change: 2026-07-01 18:26:15.697217441 +0000
+ Birth: 2026-07-01 18:21:40.769250879 +0000
+
+-- symlink.txt --
+  File: 'symlink.txt' -> 'original.txt'
+  size: 12        	Blocks: 0          IO Block: 4096   symbolic link
+Device: 8,48	Inode: 45122       Links: 1
+Access: (0777/lrwxrwxrwx)  Uid: ( 1000/  bikash)   Gid: ( 1000/  bikash)
+Access: 2026-07-01 18:22:28.885241198 +0000
+Modify: 2026-07-01 18:22:24.597241349 +0000
+Change: 2026-07-01 18:22:24.597241349 +0000
+ Birth: 2026-07-01 18:22:24.597241349 +0000
+
+--- Effect of Deleting Original File ---
+original.txt was deleted using 'rm original.txt'
+hardlink.txt: still accessible, content intact (same inode, link count reduced by 1)
+symlink.txt: broken - 'cat symlink.txt' returns 'No such file or directory'
+
+--- Conclusion ---
+Hard links share the same inode as the original file, so data survives
+as long as at least one hard link exists. Symbolic links only store a
+path reference and break when the original file is deleted.

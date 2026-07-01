@@ -1,0 +1,27 @@
+OBSERVATIONS - Question 3: File System and Link Analysis
+
+1. ls -li original.txt / hardlink.txt / symlink.txt
+   The original file and its hard link showed the EXACT SAME inode number,
+   confirming both filenames point to the same data on disk. The symbolic
+   link had a DIFFERENT inode number, since it is a separate small file
+   that only stores a path/pointer to the original.
+
+2. stat command
+   stat revealed that original.txt and hardlink.txt shared a "Links: 2"
+   count, proving two directory entries reference the same inode. The
+   symlink had its own tiny inode with type "symbolic link".
+
+3. Deleting the original file (rm original.txt)
+   After deletion, hardlink.txt still worked perfectly and showed the
+   original content - because the actual file data is only removed once
+   ALL hard links to that inode are deleted (link count reaches 0).
+   symlink.txt, however, broke immediately and returned "No such file or
+   directory" because it only stored a path to a file that no longer exists.
+
+4. Conclusion
+   Hard links are more resilient because they reference data directly via
+   inode, making them useful for redundancy without duplicating storage.
+   Symbolic links are more flexible (can link across filesystems/directories,
+   link to directories) but are fragile - if the target moves or is deleted,
+   the symlink breaks ("dangling link"). Understanding this distinction is
+   critical for data recovery and backup strategies in Linux systems.
